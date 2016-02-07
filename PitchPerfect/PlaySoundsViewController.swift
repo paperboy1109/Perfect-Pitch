@@ -49,6 +49,56 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
+    @IBAction func playDistortedAudio(sender: AnyObject) {
+        
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        let audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        let addDistortionEffect = AVAudioUnitDistortion()
+        addDistortionEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.SpeechCosmicInterference)
+        
+        
+        audioEngine.attachNode(addDistortionEffect)
+        audioEngine.connect(audioPlayerNode, to: addDistortionEffect, format: nil)
+        audioEngine.connect(addDistortionEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        try! audioEngine.start()
+        
+        audioPlayerNode.play()
+        
+    }
+    
+    
+    
+    @IBAction func playEchoAudio(sender: AnyObject) {
+        
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        let audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        let addEchoEffect = AVAudioUnitReverb()
+        addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+        addEchoEffect.wetDryMix = 64
+        
+        audioEngine.attachNode(addEchoEffect)
+        audioEngine.connect(audioPlayerNode, to: addEchoEffect, format: nil)
+        audioEngine.connect(addEchoEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        try! audioEngine.start()
+        
+        audioPlayerNode.play()
+        
+    }
+    
     
     func playAudioWithVariableSpeed(speed: Float) {
         
