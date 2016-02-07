@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HEy-Gf-Bbh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HEy-Gf-Bbh">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -217,29 +217,6 @@
                                     <action selector="stopSoundPlayback:" destination="FzY-Vd-C1e" eventType="touchUpInside" id="gTJ-Xg-KkS"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Sbq-Pk-cBT">
-                                <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="278" id="8CB-yj-mOO"/>
-                                    <constraint firstAttribute="height" constant="30" id="vQF-Ce-Mra"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8CB-yj-mOO"/>
-                                        <exclude reference="vQF-Ce-Mra"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="8CB-yj-mOO"/>
-                                        <include reference="vQF-Ce-Mra"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="changeVol:" destination="FzY-Vd-C1e" eventType="valueChanged" id="Gxt-zQ-w9c"/>
-                                </connections>
-                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q1b-fO-gKj">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
@@ -298,8 +275,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="7kn-nd-XQw" secondAttribute="trailing" constant="30" id="fZ4-P4-t4a"/>
                             <constraint firstItem="Qci-q7-7hs" firstAttribute="top" secondItem="3aH-mD-AKO" secondAttribute="bottom" constant="46" id="icb-TB-Ab6"/>
                             <constraint firstItem="q1b-fO-gKj" firstAttribute="top" secondItem="aym-1i-4A6" secondAttribute="bottom" constant="68" id="ixu-bI-KM0"/>
-                            <constraint firstItem="3aH-mD-AKO" firstAttribute="top" secondItem="Sbq-Pk-cBT" secondAttribute="bottom" constant="29" id="sr2-GP-dae"/>
-                            <constraint firstItem="Sbq-Pk-cBT" firstAttribute="centerX" secondItem="BWn-Kj-KgG" secondAttribute="centerX" id="stK-69-Aem"/>
                             <constraint firstItem="7kn-nd-XQw" firstAttribute="top" secondItem="UEU-T2-P9m" secondAttribute="bottom" constant="68" id="xyT-X4-CPN"/>
                         </constraints>
                         <variation key="default">
@@ -307,23 +282,20 @@
                                 <exclude reference="aym-1i-4A6"/>
                                 <exclude reference="UEU-T2-P9m"/>
                                 <exclude reference="3aH-mD-AKO"/>
-                                <exclude reference="Sbq-Pk-cBT"/>
                                 <exclude reference="q1b-fO-gKj"/>
                                 <exclude reference="7kn-nd-XQw"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="icb-TB-Ab6"/>
-                                <exclude reference="stK-69-Aem"/>
-                                <exclude reference="3Yj-zq-E41"/>
-                                <exclude reference="sr2-GP-dae"/>
-                                <exclude reference="fZ4-P4-t4a"/>
-                                <exclude reference="xyT-X4-CPN"/>
-                                <exclude reference="ASj-9x-HZg"/>
-                                <exclude reference="bRz-hc-Zrs"/>
                                 <exclude reference="ByH-v4-ZJa"/>
                                 <exclude reference="crW-r3-0P0"/>
+                                <exclude reference="ASj-9x-HZg"/>
+                                <exclude reference="bRz-hc-Zrs"/>
                                 <exclude reference="SdN-A1-qkT"/>
                                 <exclude reference="ixu-bI-KM0"/>
+                                <exclude reference="fZ4-P4-t4a"/>
+                                <exclude reference="xyT-X4-CPN"/>
+                                <exclude reference="3Yj-zq-E41"/>
+                                <exclude reference="icb-TB-Ab6"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -331,29 +303,23 @@
                                 <include reference="aym-1i-4A6"/>
                                 <include reference="UEU-T2-P9m"/>
                                 <include reference="3aH-mD-AKO"/>
-                                <include reference="Sbq-Pk-cBT"/>
                                 <include reference="q1b-fO-gKj"/>
                                 <include reference="7kn-nd-XQw"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="icb-TB-Ab6"/>
-                                <include reference="stK-69-Aem"/>
-                                <include reference="3Yj-zq-E41"/>
-                                <include reference="sr2-GP-dae"/>
-                                <include reference="fZ4-P4-t4a"/>
-                                <include reference="xyT-X4-CPN"/>
-                                <include reference="ASj-9x-HZg"/>
-                                <include reference="bRz-hc-Zrs"/>
                                 <include reference="ByH-v4-ZJa"/>
                                 <include reference="crW-r3-0P0"/>
+                                <include reference="ASj-9x-HZg"/>
+                                <include reference="bRz-hc-Zrs"/>
                                 <include reference="SdN-A1-qkT"/>
                                 <include reference="ixu-bI-KM0"/>
+                                <include reference="fZ4-P4-t4a"/>
+                                <include reference="xyT-X4-CPN"/>
+                                <include reference="3Yj-zq-E41"/>
+                                <include reference="icb-TB-Ab6"/>
                             </mask>
                         </variation>
                     </view>
-                    <connections>
-                        <outlet property="volumeLevel" destination="Sbq-Pk-cBT" id="Qfp-qr-ycx"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fM4-RZ-DEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

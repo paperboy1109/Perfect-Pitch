@@ -20,6 +20,7 @@ class PlaySoundsViewController: UIViewController {
     var audioFile:AVAudioFile!
     
     
+    
     @IBAction func playSoundSlow(sender: AnyObject) {
         
         print("Slow-Button has been clicked")
@@ -78,7 +79,7 @@ class PlaySoundsViewController: UIViewController {
         audioPlayer.stop()
         audioEngine.stop()
         audioEngine.reset()
-        
+
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
@@ -93,6 +94,7 @@ class PlaySoundsViewController: UIViewController {
         try! audioEngine.start()
         
         audioPlayerNode.play()
+        
         
     }
     
@@ -111,14 +113,7 @@ class PlaySoundsViewController: UIViewController {
         
     }
     
-    
-    @IBOutlet var volumeLevel: UISlider!
-    
-    
-    @IBAction func changeVol(sender: AnyObject) {
-        
-        audioPlayer.volume = volumeLevel.value
-    }
+
     
     
 
