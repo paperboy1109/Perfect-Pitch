@@ -23,7 +23,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
     }
 
@@ -39,9 +38,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     @IBAction func recordAudio(sender: UIButton) {
-        //TODO: Show text "recording in progress"
-        //TODO: Record the user's voice
-        print("in recordAudio")
         
         //Deactivate the record button now that it's been clicked
         recordButton.enabled = false
@@ -55,12 +51,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         
         //Record the user's voice
         let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        
-        //Save the recording with a time-stamp
-        //let currentDateTime = NSDate()
-        //let formatter = NSDateFormatter()
-        //formatter.dateFormat = "ddMMyyy-HHmmss"
-        //let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
         
         let recordingName = "my_audio.wav"
         
@@ -83,18 +73,13 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         
         if(flag) {
-            //Step 1 - Save the recorded audio
-            
-//            recordedAudio = RecordedAudio()
-//            recordedAudio.filePathUrl = recorder.url
-//            recordedAudio.title = recorder.url.lastPathComponent
-            
+
             recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent)
             
-            //TODO: Step 2 - Move to teh next scene (perform a segue)
             self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
             
         } else {
+            
             print("The recording was not successful")
             recordButton.enabled = true
             stopButton.hidden = true

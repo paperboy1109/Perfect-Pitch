@@ -23,12 +23,6 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func playSoundSlow(sender: AnyObject) {
         
-        print("Slow-Button has been clicked")
-        
-//        audioPlayer.rate = 0.5
-//        
-//        startPlayer()
-        
         playAudioWithVariableSpeed(0.5)
         
     }
@@ -36,12 +30,6 @@ class PlaySoundsViewController: UIViewController {
     
     
     @IBAction func playSoundFast(sender: AnyObject) {
-        
-        print("Fast-Button has been clicked")
-        
-//        audioPlayer.rate = 1.75
-//        
-//        startPlayer()
         
         playAudioWithVariableSpeed(1.75)
         
@@ -74,6 +62,7 @@ class PlaySoundsViewController: UIViewController {
         
     }
     
+    
     func playAudioWithVariablePitch(pitch: Float) {
         
         audioPlayer.stop()
@@ -100,14 +89,15 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func stopSoundPlayback(sender: AnyObject) {
         
-        print("Stop-Button has been clicked")
         audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
 
     }
     
     func startPlayer() {
         
-        audioPlayer.stop() // good practice
+        audioPlayer.stop()
         audioPlayer.currentTime = 0.0
         audioPlayer.play()
         
@@ -120,34 +110,6 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        //var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3")
-        
-        //Updated:
-        /*
-        do {
-            
-            try audioPlayer = AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3")!))
-            
-            audioPlayer.enableRate = true
-            
-            
-        } catch {
-            // It didn't work
-            print("The filepath did not work")
-        }
-        */
-        
-        // Updated again:
-//        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3"){
-//            
-//            var filePathUrl = NSURL.fileURLWithPath(filePath)
-//            
-//        } else {
-//            print("the filePath is empty")
-//        }
-        
         audioPlayer = try! AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
         audioPlayer.enableRate = true
         
@@ -158,20 +120,13 @@ class PlaySoundsViewController: UIViewController {
 
     
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
