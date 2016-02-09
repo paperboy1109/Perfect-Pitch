@@ -19,8 +19,6 @@ class PlaySoundsViewController: UIViewController {
     
     var audioFile:AVAudioFile!
     
-    //let changePitchEffect = AVAudioUnitTimePitch()
-    
     
     
     @IBAction func playSoundSlow(sender: AnyObject) {
@@ -28,7 +26,6 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithVariableSpeed(0.5)
         
     }
-    
     
     
     @IBAction func playSoundFast(sender: AnyObject) {
@@ -52,48 +49,45 @@ class PlaySoundsViewController: UIViewController {
     
     
     @IBAction func playDistortedAudio(sender: AnyObject) {
-
-        stopPlayer()
         
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
-        let addDistortionEffect = AVAudioUnitDistortion()
-        addDistortionEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.SpeechCosmicInterference)
-        
-        
-        audioEngine.attachNode(addDistortionEffect)
-        audioEngine.connect(audioPlayerNode, to: addDistortionEffect, format: nil)
-        audioEngine.connect(addDistortionEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        try! audioEngine.start()
-        
-        audioPlayerNode.play()
+        playAddedEffect( {
+            
+            let addEchoEffect = AVAudioUnitReverb()
+            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+            addEchoEffect.wetDryMix = 64
+            
+            let addDistortionEffect = AVAudioUnitDistortion()
+            addDistortionEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.SpeechCosmicInterference)
+            
+            self.audioEngine.attachNode(addDistortionEffect)
+            self.audioEngine.connect(audioPlayerNode, to: addDistortionEffect, format: nil)
+            self.audioEngine.connect(addDistortionEffect, to: self.audioEngine.outputNode, format: nil)
+            
+            }, node: audioPlayerNode)
+
         
     }
     
     
-    
     @IBAction func playEchoAudio(sender: AnyObject) {
 
-        stopPlayer()
-        
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
-        let addEchoEffect = AVAudioUnitReverb()
-        addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
-        addEchoEffect.wetDryMix = 64
-        
-        audioEngine.attachNode(addEchoEffect)
-        audioEngine.connect(audioPlayerNode, to: addEchoEffect, format: nil)
-        audioEngine.connect(addEchoEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        try! audioEngine.start()
-        
-        audioPlayerNode.play()
+        playAddedEffect( {
+            
+            let addEchoEffect = AVAudioUnitReverb()
+            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+            addEchoEffect.wetDryMix = 64
+
+            self.audioEngine.attachNode(addEchoEffect)
+            self.audioEngine.connect(audioPlayerNode, to: addEchoEffect, format: nil)
+            self.audioEngine.connect(addEchoEffect, to: self.audioEngine.outputNode, format: nil)
+            
+            }, node: audioPlayerNode)
         
     }
     
@@ -110,50 +104,34 @@ class PlaySoundsViewController: UIViewController {
     
     
     func playAudioWithVariablePitch(pitch: Float) {
-        
-        stopPlayer()
 
-        let changePitchEffect = AVAudioUnitTimePitch()
-        
-        changePitchEffect.pitch = pitch
-        audioEngine.attachNode(changePitchEffect)
-        
         let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
+        
+        playAddedEffect( {
+            
+            let changePitchEffect = AVAudioUnitTimePitch()
+            changePitchEffect.pitch = pitch
+            
+            self.audioEngine.attachNode(changePitchEffect)
+            self.audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
+            self.audioEngine.connect(changePitchEffect, to: self.audioEngine.outputNode, format: nil)
 
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
-        
-        
-        playbackRecording(audioPlayerNode)
-//        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-//        try! audioEngine.start()
-//        
-//        audioPlayerNode.play()
-        
-        
-        
-        //playAddedEffect()
+            }, node: audioPlayerNode)
         
     }
     
     
-    // TODO: Add arguments and code so that this function can create all 6 effects
-//    func playAddedEffect() {
-//        
-//        let audioPlayerNode = AVAudioPlayerNode()
-//        audioEngine.attachNode(audioPlayerNode)
-//        
-//        
-//        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-//        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
-//        
-//        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-//        try! audioEngine.start()
-//        
-//        audioPlayerNode.play()
-//        
-//    }
+    func playAddedEffect(effect: () -> Void, node: AVAudioPlayerNode) {
+        
+        stopPlayer()
+        
+        effect()
+        
+        playbackRecording(node)
+        
+    }
+    
     
     @IBAction func stopSoundPlayback(sender: AnyObject) {
 
@@ -181,10 +159,8 @@ class PlaySoundsViewController: UIViewController {
         
         playerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         try! audioEngine.start()
-        
         playerNode.play()
         
-    
     }
     
 
