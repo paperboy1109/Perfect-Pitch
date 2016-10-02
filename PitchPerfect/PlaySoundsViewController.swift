@@ -21,48 +21,48 @@ class PlaySoundsViewController: UIViewController {
     
     
     
-    @IBAction func playSoundSlow(sender: AnyObject) {
+    @IBAction func playSoundSlow(_ sender: AnyObject) {
         
         playAudioWithVariableSpeed(0.5)
         
     }
     
     
-    @IBAction func playSoundFast(sender: AnyObject) {
+    @IBAction func playSoundFast(_ sender: AnyObject) {
         
         playAudioWithVariableSpeed(1.75)
         
     }
     
-    @IBAction func PlayChipmunkAudio(sender: AnyObject) {
+    @IBAction func PlayChipmunkAudio(_ sender: AnyObject) {
         
         playAudioWithVariablePitch(1000)
         
     }
     
     
-    @IBAction func playDarthvaderAudio(sender: AnyObject) {
+    @IBAction func playDarthvaderAudio(_ sender: AnyObject) {
         
         playAudioWithVariablePitch(-1000)
         
     }
     
     
-    @IBAction func playDistortedAudio(sender: AnyObject) {
+    @IBAction func playDistortedAudio(_ sender: AnyObject) {
         
         let audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attach(audioPlayerNode)
         
         playAddedEffect( {
             
             let addEchoEffect = AVAudioUnitReverb()
-            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.cathedral)
             addEchoEffect.wetDryMix = 64
             
             let addDistortionEffect = AVAudioUnitDistortion()
-            addDistortionEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.SpeechCosmicInterference)
+            addDistortionEffect.loadFactoryPreset(AVAudioUnitDistortionPreset.speechCosmicInterference)
             
-            self.audioEngine.attachNode(addDistortionEffect)
+            self.audioEngine.attach(addDistortionEffect)
             self.audioEngine.connect(audioPlayerNode, to: addDistortionEffect, format: nil)
             self.audioEngine.connect(addDistortionEffect, to: self.audioEngine.outputNode, format: nil)
             
@@ -72,18 +72,18 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
-    @IBAction func playEchoAudio(sender: AnyObject) {
+    @IBAction func playEchoAudio(_ sender: AnyObject) {
 
         let audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attach(audioPlayerNode)
         
         playAddedEffect( {
             
             let addEchoEffect = AVAudioUnitReverb()
-            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+            addEchoEffect.loadFactoryPreset(AVAudioUnitReverbPreset.cathedral)
             addEchoEffect.wetDryMix = 64
 
-            self.audioEngine.attachNode(addEchoEffect)
+            self.audioEngine.attach(addEchoEffect)
             self.audioEngine.connect(audioPlayerNode, to: addEchoEffect, format: nil)
             self.audioEngine.connect(addEchoEffect, to: self.audioEngine.outputNode, format: nil)
             
@@ -92,7 +92,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
-    func playAudioWithVariableSpeed(speed: Float) {
+    func playAudioWithVariableSpeed(_ speed: Float) {
 
         stopPlayer()
         
@@ -103,17 +103,17 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
-    func playAudioWithVariablePitch(pitch: Float) {
+    func playAudioWithVariablePitch(_ pitch: Float) {
 
         let audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attach(audioPlayerNode)
         
         playAddedEffect( {
             
             let changePitchEffect = AVAudioUnitTimePitch()
             changePitchEffect.pitch = pitch
             
-            self.audioEngine.attachNode(changePitchEffect)
+            self.audioEngine.attach(changePitchEffect)
             self.audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
             self.audioEngine.connect(changePitchEffect, to: self.audioEngine.outputNode, format: nil)
 
@@ -122,7 +122,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
-    func playAddedEffect(effect: () -> Void, node: AVAudioPlayerNode) {
+    func playAddedEffect(_ effect: () -> Void, node: AVAudioPlayerNode) {
         
         stopPlayer()
         
@@ -133,7 +133,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     
-    @IBAction func stopSoundPlayback(sender: AnyObject) {
+    @IBAction func stopSoundPlayback(_ sender: AnyObject) {
 
         stopPlayer()
 
@@ -155,9 +155,9 @@ class PlaySoundsViewController: UIViewController {
         
     }
     
-    func playbackRecording(playerNode: AVAudioPlayerNode) {
+    func playbackRecording(_ playerNode: AVAudioPlayerNode) {
         
-        playerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        playerNode.scheduleFile(audioFile, at: nil, completionHandler: nil)
         try! audioEngine.start()
         playerNode.play()
         
@@ -170,11 +170,11 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        audioPlayer = try! AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
+        audioPlayer = try! AVAudioPlayer(contentsOf: receivedAudio.filePathUrl as URL)
         audioPlayer.enableRate = true
         
         audioEngine = AVAudioEngine()
-        audioFile = try! AVAudioFile(forReading: receivedAudio.filePathUrl)
+        audioFile = try! AVAudioFile(forReading: receivedAudio.filePathUrl as URL)
 
     }
 
